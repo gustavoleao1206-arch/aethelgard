@@ -1,0 +1,29 @@
+{
+    "name": "JogoDaTrupe.Tests.EditMode",
+    "rootNamespace": "JogoDaTrupe.Tests",
+    "references": [
+        "JogoDaTrupe.Core",
+        "JogoDaTrupe.Data",
+        "JogoDaTrupe.Gameplay",
+        "JogoDaTrupe.Presentation",
+        "JogoDaTrupe.Net",
+        "Unity.Collections",
+        "UnityEngine.TestRunner",
+        "UnityEditor.TestRunner"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": true,
+    "precompiledReferences": [
+        "nunit.framework.dll"
+    ],
+    "autoReferenced": false,
+    "defineConstraints": [
+        "UNITY_INCLUDE_TESTS"
+    ],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

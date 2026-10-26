@@ -1,0 +1,46 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!--
+    Os testes EditMode que dependem SÓ do Core, rodando com `dotnet test` fora da Unity.
+    Lista EXPLÍCITA de propósito: os outros testes dependem de Data/Gameplay/Net ou de
+    GameObject e não compilam contra o shim. Os .cs não são copiados (apontam para Assets/).
+    NUnit fica em 3.14.x: o NUnit 4 tirou o Assert.AreEqual clássico que os testes usam.
+  -->
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <LangVersion>9.0</LangVersion>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <RootNamespace>JogoDaTrupe.Tests</RootNamespace>
+    <IsPackable>false</IsPackable>
+    <IsTestProject>true</IsTestProject>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="../../../Assets/Tests/EditMode/EventBusTests.cs" />
+    <Compile Include="../../../Assets/Tests/EditMode/Geometry2DTests.cs" />
+    <Compile Include="../../../Assets/Tests/EditMode/GroundSeatingTests.cs" />
+    <Compile Include="../../../Assets/Tests/EditMode/HouseBlueprintTests.cs" />
+    <Compile Include="../../../Assets/Tests/EditMode/LakeTests.cs" />
+    <Compile Include="../../../Assets/Tests/EditMode/PathRibbonTests.cs" />
+    <Compile Include="../../../Assets/Tests/EditMode/SaveMergeTests.cs" />
+    <Compile Include="../../../Assets/Tests/EditMode/SessionRequestTests.cs" />
+    <Compile Include="../../../Assets/Tests/EditMode/SimulationAuthorityTests.cs" />
+    <Compile Include="../../../Assets/Tests/EditMode/TimeAndRandomTests.cs" />
+    <Compile Include="../../../Assets/Tests/EditMode/WorldHeightTests.cs" />
+    <Compile Include="../../../Assets/Tests/EditMode/WorldPathsTests.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.12.0" />
+    <PackageReference Include="NUnit" Version="3.14.0" />
+    <PackageReference Include="NUnit3TestAdapter" Version="4.6.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="../Core/JogoDaTrupe.Core.Headless.csproj" />
+    <ProjectReference Include="../UnityShim/UnityShim.csproj" />
+  </ItemGroup>
+
+</Project>

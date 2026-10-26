@@ -1,0 +1,9 @@
+# Saída do dotnet build/test: nunca vai para o git.
+bin/
+obj/
+TestResults/
+
+# O .gitignore da raiz ignora *.csproj e *.sln (os que a Unity gera sozinha).
+# Os daqui são escritos à mão e precisam ir para o git.
+!*.csproj
+!*.sln

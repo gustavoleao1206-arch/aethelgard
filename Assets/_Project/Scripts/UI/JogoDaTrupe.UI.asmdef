@@ -1,0 +1,19 @@
+{
+    "name": "JogoDaTrupe.UI",
+    "rootNamespace": "JogoDaTrupe.UI",
+    "references": [
+        "JogoDaTrupe.Core",
+        "JogoDaTrupe.Data",
+        "JogoDaTrupe.Gameplay",
+        "UnityEngine.UI"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

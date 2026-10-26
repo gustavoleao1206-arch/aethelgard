@@ -1,0 +1,19 @@
+{
+    "name": "JogoDaTrupe.Presentation",
+    "rootNamespace": "JogoDaTrupe.Presentation",
+    "references": [
+        "JogoDaTrupe.Core",
+        "JogoDaTrupe.Data",
+        "JogoDaTrupe.Gameplay",
+        "JogoDaTrupe.Input"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

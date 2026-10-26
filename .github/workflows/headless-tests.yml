@@ -1,0 +1,71 @@
+# Testes do Core sem Unity (Tools/HeadlessTests): pré-verificação rápida em Linux.
+# O Test Runner da Unity (local) continua sendo a fonte da verdade.
+#
+# Regras: nunca baixar LFS (a arte tem ~1,8 GB e a banda da conta é
+# 10 GiB/mês) e nunca pedir secrets.
+#
+# Custo em minutos (repo privado: franquia mensal do GitHub):
+#   - push só na main; PR é coberto pelo pull_request (que já testa o merge com a main).
+#     Sem isso, cada push num branch com PR aberto rodava DUAS vezes.
+#   - paths: mudança só de docs, cena, prefab ou arte não roda nada.
+#   - concurrency: um push novo cancela a execução velha do mesmo branch/PR.
+# Obs.: por causa do filtro de paths, este check NÃO pode virar "obrigatório" numa proteção
+# de branch (PR sem mudança nesses caminhos ficaria esperando um check que nunca roda).
+name: Headless tests (Core)
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "Assets/_Project/Scripts/Core/**"
+      - "Assets/Tests/EditMode/**"
+      - "Tools/HeadlessTests/**"
+      - ".github/workflows/headless-tests.yml"
+  pull_request:
+    # Mesma lista do push (repetida de propósito: sem âncoras YAML, que o Actions pode rejeitar).
+    paths:
+      - "Assets/_Project/Scripts/Core/**"
+      - "Assets/Tests/EditMode/**"
+      - "Tools/HeadlessTests/**"
+      - ".github/workflows/headless-tests.yml"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: headless-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  headless-tests:
+    # Versão fixa: o ubuntu-latest passa para o Ubuntu 26 em 19/10/2026 (aviso do GitHub).
+    # Trocar de propósito, junto com o .NET, e não por surpresa.
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    env:
+      # Garante ponteiros LFS no lugar da arte mesmo se o runner tiver o filtro do LFS ativo.
+      GIT_LFS_SKIP_SMUDGE: "1"
+      DOTNET_CLI_TELEMETRY_OPTOUT: "1"
+      DOTNET_NOLOGO: "1"
+    steps:
+      - name: Checkout (sem LFS, sem guardar o token)
+        uses: actions/checkout@v5
+        with:
+          lfs: false
+          # O token não precisa ficar na config do git enquanto o NuGet baixa e executa
+          # targets de MSBuild de pacotes de terceiros.
+          persist-credentials: false
+
+      - name: Instalar .NET 8
+        uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: 8.0.x
+
+      # BUILD explícito da solução inteira: o `dotnet test` só compila projetos DE TESTE, então
+      # sem este passo o CompileCheck (que não é projeto de teste) nunca seria compilado e a trava
+      # da superfície da Unity (NUnit 3.5 / netstandard2.1) ficaria sempre verde sem checar nada.
+      - name: Compilar tudo (inclui o CompileCheck)
+        run: dotnet build Tools/HeadlessTests/HeadlessTests.sln --configuration Release
+
+      - name: Rodar os testes headless
+        run: dotnet test Tools/HeadlessTests/HeadlessTests.sln --configuration Release --no-build --logger "console;verbosity=normal"

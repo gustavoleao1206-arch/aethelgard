@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!--
+    Imitação mínima do UnityEngine (namespace UnityEngine) para compilar o Core fora da Unity.
+    Mesmo alvo e mesma versão de C# que a Unity usa no projeto: netstandard2.1 + C# 9.
+  -->
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <LangVersion>9.0</LangVersion>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <RootNamespace>UnityEngine</RootNamespace>
+    <AssemblyName>UnityShim</AssemblyName>
+  </PropertyGroup>
+
+</Project>

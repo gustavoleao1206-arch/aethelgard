@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!--
+    O assembly Core do jogo compilado fora da Unity, contra o UnityShim.
+    Os .cs NÃO são copiados: o Compile Include aponta para os originais em Assets/,
+    então qualquer mudança no Core entra aqui sem manutenção.
+    Se alguém usar no Core algo da Unity que o shim não tem (ex.: Physics), o build falha:
+    é a checagem de pureza do Core.
+  -->
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <LangVersion>9.0</LangVersion>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <RootNamespace>JogoDaTrupe.Core</RootNamespace>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="../../../Assets/_Project/Scripts/Core/**/*.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="../UnityShim/UnityShim.csproj" />
+  </ItemGroup>
+
+</Project>

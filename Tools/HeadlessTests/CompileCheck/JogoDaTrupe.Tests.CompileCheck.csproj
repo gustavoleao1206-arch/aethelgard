@@ -1,0 +1,51 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!--
+    SÓ COMPILA (não roda): os MESMOS 12 arquivos de teste do projeto Tests/, mas com a
+    superfície de API que a Unity oferece a eles — .NET Standard 2.1 e NUnit 3.5 (a Unity usa
+    o fork com.unity.ext.nunit, "baseado no NUnit 3.5"). O projeto Tests/ roda em net8.0 com
+    NUnit 3.14, que têm API a mais: um teste que use essa API a mais compilaria verde lá e
+    quebraria a assembly de testes na Unity. Se ESTE projeto falhar, é isso que aconteceu.
+    Mantenha a lista de <Compile Include> IGUAL à do Tests/.
+  -->
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <LangVersion>9.0</LangVersion>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <RootNamespace>JogoDaTrupe.Tests</RootNamespace>
+    <IsPackable>false</IsPackable>
+    <IsTestProject>false</IsTestProject>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <!-- NU1701: o NUnit 3.5.0 não tem build para .NET Standard 2.x; o NuGet usa o build de
+         .NET Framework, que expõe a MESMA API do NUnit 3.5 (é ela que queremos checar). A BCL
+         continua sendo a do .NET Standard 2.1. Aviso esperado, silenciado de propósito. -->
+    <NoWarn>$(NoWarn);NU1701</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="../../../Assets/Tests/EditMode/EventBusTests.cs" />
+    <Compile Include="../../../Assets/Tests/EditMode/Geometry2DTests.cs" />
+    <Compile Include="../../../Assets/Tests/EditMode/GroundSeatingTests.cs" />
+    <Compile Include="../../../Assets/Tests/EditMode/HouseBlueprintTests.cs" />
+    <Compile Include="../../../Assets/Tests/EditMode/LakeTests.cs" />
+    <Compile Include="../../../Assets/Tests/EditMode/PathRibbonTests.cs" />
+    <Compile Include="../../../Assets/Tests/EditMode/SaveMergeTests.cs" />
+    <Compile Include="../../../Assets/Tests/EditMode/SessionRequestTests.cs" />
+    <Compile Include="../../../Assets/Tests/EditMode/SimulationAuthorityTests.cs" />
+    <Compile Include="../../../Assets/Tests/EditMode/TimeAndRandomTests.cs" />
+    <Compile Include="../../../Assets/Tests/EditMode/WorldHeightTests.cs" />
+    <Compile Include="../../../Assets/Tests/EditMode/WorldPathsTests.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- NUnit oficial mais próximo do fork da Unity (3.5). Sem test adapter: não roda nada. -->
+    <PackageReference Include="NUnit" Version="3.5.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="../Core/JogoDaTrupe.Core.Headless.csproj" />
+    <ProjectReference Include="../UnityShim/UnityShim.csproj" />
+  </ItemGroup>
+
+</Project>

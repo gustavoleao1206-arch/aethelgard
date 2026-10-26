@@ -1,0 +1,26 @@
+{
+    "name": "JogoDaTrupe.Net",
+    "rootNamespace": "JogoDaTrupe.Net",
+    "references": [
+        "JogoDaTrupe.Core",
+        "JogoDaTrupe.Data",
+        "JogoDaTrupe.Gameplay",
+        "JogoDaTrupe.Presentation",
+        "JogoDaTrupe.UI",
+        "JogoDaTrupe.Input",
+        "Unity.Netcode.Runtime",
+        "Unity.Netcode.Transports.UTP",
+        "Unity.Networking.Transport",
+        "Unity.InputSystem",
+        "Unity.Collections"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
